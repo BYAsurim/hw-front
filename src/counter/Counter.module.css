@@ -1,6 +1,12 @@
 
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
 .header {
-   border: 2px solid green;
+    border: 2px solid green;
     width: 300px;
     height: 300px;
     background-color: yellow;
@@ -8,16 +14,19 @@
     font-size: 40px;
 
 }
+
 .error {
     color: red;
     font-size: 40px;
 }
-.number{
+
+.number {
     display: flex;
     justify-content: center;
     margin-top: 150px;
 }
-.buttons{
+
+.buttons {
     display: flex;
     justify-content: center;
 
