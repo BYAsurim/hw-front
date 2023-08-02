@@ -32,13 +32,13 @@ export function Counter() {
                 </div>
                 <div className={s.buttons}>
                     <ThemeProvider theme={theme}>
-                        <div>
+                        <div className={s.button_inc}>
                             <Button size={"small"} variant="outlined" onClick={incHandler}
                                     disabled={number === 5}>inc</Button>
                         </div>
                         {/*<button onClick={incHandler} disabled={number === 5}>inc*/}
                         {/*</button>*/}
-                        <div>
+                        <div className={s.button_reset}>
                             <Button size={"small"} variant="outlined" onClick={resetHandler}
                                     disabled={number === 0}>reset</Button>
                         </div>
@@ -47,6 +47,33 @@ export function Counter() {
                     </ThemeProvider>
                 </div>
             </div>
+
+            <div className={s.header}>
+                <div >
+                    <div className={s.buttons_inputs}>
+                        <div  className={s.max_value}>
+                            max value:
+
+                            <input className={s.input} type = 'number'/>
+
+                        </div>
+                        <div className={s.max_value}>
+                            start value:
+                            <input className={s.input}  type = 'number' />
+                        </div>
+                    </div>
+                </div>
+                <div className={s.buttons}>
+                    <ThemeProvider theme={theme}>
+                        <div className={s.button_inc}>
+                            <Button size={"small"} variant="outlined" onClick={()=>{}}
+                                    disabled={number === 5}>set</Button>
+                        </div>
+
+                    </ThemeProvider>
+                </div>
+            </div>
+
         </div>
     )
 }
