@@ -26,8 +26,9 @@
 .number {
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    /*align-items: center;*/
     border: 2px solid green;
     height: 200px;
     border-radius: 10px;
@@ -71,6 +72,7 @@
 }
 
 .input {
+   height: 50px;
     width: 100px;
     margin-left: 20px;
     text-align: center;
