@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import s from './Counter.module.css';
-import {Button, createTheme, ThemeProvider} from "@mui/material";
+import { createTheme, ThemeProvider} from "@mui/material";
 import {SuperInput} from "./SuperInput";
+import {SuperButton} from "./SuperButton";
 
 
 
@@ -28,15 +29,6 @@ export function Counter() {
         setMaxValue(maxValue)
 
     }
-
-    // const maxChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    //     if (startValue < 0 || startValue >= event.currentTarget.valueAsNumber) {
-    //         setError('write correct')
-    //     } else {
-    //         setError('')
-    //     }
-    //     setMaxValue(event.currentTarget.valueAsNumber)
-    // }
     const maxChangeHandler = (e: number) => {
         if (startValue < 0 || startValue >= e) {
             setError('write correct')
@@ -54,17 +46,13 @@ export function Counter() {
         console.log('startValue:', startValue)
         console.log('maxValue:', maxValue)
         setStartValue(e)
-
-
     }
-
 
     return (
         <div className={s.main}>
             <div className={s.header}>
                 <div className={s.number}>
                     {error === 'write correct' ? <div>Write correct</div> : ''}
-
                     <div className={error === 'error' ? s.error : ''}>
                         {
                             number
@@ -74,16 +62,19 @@ export function Counter() {
                 <div className={s.buttons}>
                     <ThemeProvider theme={theme}>
                         <div className={s.button_inc}>
-                            <Button size={"small"} variant="outlined" onClick={incHandler}
-                                    disabled={number === maxValue}>inc</Button>
+                            <SuperButton
+                                text={'inc'}
+                                callBack={incHandler}
+                                disabled={number === maxValue}
+                            />
                         </div>
                         <div className={s.button_reset}>
-                            <Button size={"small"} variant="outlined" onClick={resetHandler}
-                                    disabled={number === startValue}>reset</Button>
-
+                            <SuperButton
+                                text={'reset'}
+                                callBack={resetHandler}
+                                disabled={number === startValue}
+                            />
                         </div>
-
-
                     </ThemeProvider>
                 </div>
             </div>
@@ -94,9 +85,6 @@ export function Counter() {
                         <div className={s.max_value}>
                             max value:
                             <div className={s.input + ' ' + s.child_input}>
-                                {/*<input  type='number'*/}
-                                {/*       onChange={maxChangeHandler}*/}
-                                {/*/>*/}
                                 <SuperInput callBack={(e: number) => {
                                     maxChangeHandler(e)
                                 }}/>
@@ -105,9 +93,6 @@ export function Counter() {
                         </div>
                         <div className={s.max_value}>
                             start value:
-                            {/*<input className={s.input} type='number'*/}
-                            {/*       onChange={startChangeHandler}*/}
-                            {/*/>*/}
                             <div className={s.input}>
                                 <SuperInput callBack={(e: number) => {
                                     startChangeHandler(e)
@@ -119,15 +104,15 @@ export function Counter() {
                 <div className={s.buttons}>
                     <ThemeProvider theme={theme}>
                         <div className={s.button_inc}>
-                            <Button size={"small"} variant="outlined" onClick={setClickHandler}
-                                    disabled={startValue >= maxValue || startValue < 0}
-                            >set</Button>
+                            <SuperButton
+                                text={'set'}
+                                callBack={setClickHandler}
+                                disabled={startValue >= maxValue || startValue < 0}
+                            />
                         </div>
-
                     </ThemeProvider>
                 </div>
             </div>
-
         </div>
     )
 }

@@ -12,7 +12,7 @@ function App() {
             {/*<HW2/>*/}
             {/*<HW3/>*/}
             {/*<HW4/>*/}
-            <Counter/>
+            <Counter propsData={['1','2',3]}/>
         </div>
     );
 }
