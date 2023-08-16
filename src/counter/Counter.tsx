@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import s from './Counter.module.css';
-import { createTheme, ThemeProvider} from "@mui/material";
-import {SuperInput} from "./SuperInput";
-import {SuperButton} from "./SuperButton";
+import {SettingsCounter} from "./SettingsCounter";
+import {СountingСounter} from "./СountingСounter";
 
 
 
@@ -50,75 +49,22 @@ export function Counter() {
 
     return (
         <div className={s.main}>
-            <div className={s.header}>
-                <div className={s.number}>
-                    {error === 'write correct' ? <div>Write correct</div> : ''}
-                    <div className={error === 'error' ? s.error : ''}>
-                        {
-                            number
-                        }
-                    </div>
-                </div>
-                <div className={s.buttons}>
-                    <ThemeProvider theme={theme}>
-                        <div className={s.button_inc}>
-                            <SuperButton
-                                text={'inc'}
-                                callBack={incHandler}
-                                disabled={number === maxValue}
-                            />
-                        </div>
-                        <div className={s.button_reset}>
-                            <SuperButton
-                                text={'reset'}
-                                callBack={resetHandler}
-                                disabled={number === startValue}
-                            />
-                        </div>
-                    </ThemeProvider>
-                </div>
-            </div>
+            <СountingСounter
+                number={number}
+                error={error}
+                startValue={startValue}
+                maxValue={maxValue}
+                incHandler={incHandler}
+                resetHandler={resetHandler}
+            />
+            <SettingsCounter maxChangeHandler={maxChangeHandler}
+                             startChangeHandler={startChangeHandler}
+                             setClickHandler={setClickHandler}
+                             startValue={startValue}
+                             maxValue={maxValue}
+            />
 
-            <div className={s.header}>
-                <div>
-                    <div className={s.buttons_inputs}>
-                        <div className={s.max_value}>
-                            max value:
-                            <div className={s.input + ' ' + s.child_input}>
-                                <SuperInput callBack={(e: number) => {
-                                    maxChangeHandler(e)
-                                }}/>
-                            </div>
-
-                        </div>
-                        <div className={s.max_value}>
-                            start value:
-                            <div className={s.input}>
-                                <SuperInput callBack={(e: number) => {
-                                    startChangeHandler(e)
-                                }}/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className={s.buttons}>
-                    <ThemeProvider theme={theme}>
-                        <div className={s.button_inc}>
-                            <SuperButton
-                                text={'set'}
-                                callBack={setClickHandler}
-                                disabled={startValue >= maxValue || startValue < 0}
-                            />
-                        </div>
-                    </ThemeProvider>
-                </div>
-            </div>
         </div>
     )
 }
 
-const theme = createTheme({
-    typography: {
-        fontSize: 10,
-    },
-});
