@@ -72,9 +72,13 @@
 }
 
 .input {
-   height: 50px;
+
     width: 100px;
     margin-left: 20px;
     text-align: center;
+}
+.root{
+    width: 90%;
+
 }
 

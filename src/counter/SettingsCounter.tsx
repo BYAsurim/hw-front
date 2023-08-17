@@ -23,7 +23,9 @@ export const SettingsCounter = (props:SettingsCounterPropsType) => {
                         <div className={s.max_value}>
                             max value:
                             <div className={s.input + ' ' + s.child_input}>
-                                <SuperInput callBack={(e: number) => {
+                                <SuperInput
+                                    value={props.maxValue}
+                                    callBack={(e: number) => {
                                     props.maxChangeHandler(e)
                                 }}/>
                             </div>
@@ -32,7 +34,9 @@ export const SettingsCounter = (props:SettingsCounterPropsType) => {
                         <div className={s.max_value}>
                             start value:
                             <div className={s.input}>
-                                <SuperInput callBack={(e: number) => {
+                                <SuperInput
+                                    value={props.startValue}
+                                    callBack={(e: number) => {
                                     props.startChangeHandler(e)
                                 }}/>
                             </div>
