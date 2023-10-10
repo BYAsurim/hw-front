@@ -4,6 +4,10 @@ import {HW2} from './HW/2/HW2';
 import {HW3} from './HW/3/HW3';
 import {HW4} from './HW/4/HW4';
 import {Counter} from "./counter/Counter";
+import {CounterWithRedax} from "./counterWithRedax/CounterWithRedax";
+import {Provider} from "react-redux";
+import {store} from "./counterWithRedax/state/store";
+
 
 function App() {
     return (
@@ -12,7 +16,10 @@ function App() {
             {/*<HW2/>*/}
             {/*<HW3/>*/}
             {/*<HW4/>*/}
-            <Counter propsData={['1','2',3]}/>
+            {/*<Counter />*/}
+            <Provider store={store}>
+            <CounterWithRedax/>
+            </Provider>
         </div>
     );
 }
