@@ -5,47 +5,26 @@ import {createTheme, ThemeProvider} from "@mui/material";
 import {SuperButton} from "./SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {CountingRootStateType} from "./state/store";
-import {maxValueAC, startValueAC} from "./state/setting-reduser";
-
-type SettingsCounterPropsType = {
+import {maxValueAC, numberAC, startValueAC} from "./state/counting-reduser";
 
 
+export const SettingsCounter = () => {
 
-}
-
-export const SettingsCounter = (props:SettingsCounterPropsType) => {
-
-    const maxValue = useSelector<CountingRootStateType, number>(state => state.setting.maxValue)
-    const startValue = useSelector<CountingRootStateType, number>(state => state.setting.startValue)
+    const state = useSelector<CountingRootStateType, CountingRootStateType>(state => state)
     const dispatch = useDispatch()
 
     const setClickHandler = () => {
-
-    //     setNumber(startValue)
-    //     setMaxValue(maxValue)
-    //
+        const action = numberAC(state.count.startValue)
+        dispatch(action)
     }
     const maxChangeHandler = (e: number) => {
         const action = maxValueAC(e)
         dispatch(action)
-        // if (startValue < 0 || startValue >= e) {
-        //     setError('write correct')
-        // } else {
-        //     setError('')
-        // }
-        // setMaxValue(e)
+
     }
     const startChangeHandler = (e: number) => {
         const action = startValueAC(e)
         dispatch(action)
-        // if (e < 0 || e >= maxValue) {
-        //     setError('write correct')
-        // } else {
-        //     setError('')
-        // }
-        // console.log('startValue:', startValue)
-        // console.log('maxValue:', maxValue)
-        // setStartValue(e)
     }
 
 
@@ -58,21 +37,20 @@ export const SettingsCounter = (props:SettingsCounterPropsType) => {
                             max value:
                             <div className={s.input + ' ' + s.child_input}>
                                 <SuperInput
-                                    value={maxValue}
+                                    value={state.count.maxValue}
                                     callBack={(e: number) => {
-                                   maxChangeHandler(e)
-                                }}/>
+                                        maxChangeHandler(e)
+                                    }}/>
                             </div>
-
                         </div>
                         <div className={s.max_value}>
                             start value:
                             <div className={s.input}>
                                 <SuperInput
-                                    value={startValue}
+                                    value={state.count.startValue}
                                     callBack={(e: number) => {
-                                   startChangeHandler(e)
-                                }}/>
+                                        startChangeHandler(e)
+                                    }}/>
                             </div>
                         </div>
                     </div>
@@ -83,7 +61,7 @@ export const SettingsCounter = (props:SettingsCounterPropsType) => {
                             <SuperButton
                                 text={'set'}
                                 callBack={setClickHandler}
-                                disabled={startValue >= maxValue || startValue < 0}
+                                disabled={state.count.startValue >= state.count.maxValue || state.count.startValue < 0}
                             />
                         </div>
                     </ThemeProvider>
