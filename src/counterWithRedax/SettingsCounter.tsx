@@ -1,31 +1,43 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import s from "./Counter.module.css";
 import {SuperInput} from "./SuperInput";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {SuperButton} from "./SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {CountingRootStateType} from "./state/store";
-import {maxValueAC, numberAC, startValueAC} from "./state/counting-reduser";
+import {numberAC, setSettingAC} from "./state/counting-reduser";
 
 
 export const SettingsCounter = () => {
-
-    const state = useSelector<CountingRootStateType, CountingRootStateType>(state => state)
+    console.log('SettingsCounter')
+    const startValue = useSelector<CountingRootStateType, number>( state => state.count.startValue)
+    const maxValue = useSelector<CountingRootStateType, number>( state => state.count.maxValue)
     const dispatch = useDispatch()
 
-    const setClickHandler = () => {
-        const action = numberAC(state.count.startValue)
+    const setClickHandler = useCallback(() => {
+        const action = numberAC()
         dispatch(action)
-    }
-    const maxChangeHandler = (e: number) => {
-        const action = maxValueAC(e)
+    },[])
+
+
+    // const maxChangeHandler = useCallback((e: number) => {
+    //     const action = maxValueAC(e)
+    //     dispatch(action)
+    //
+    // },[])
+    const maxChangeHandler = useCallback((e: number) => {
+        const action = setSettingAC('maxValue' ,e)
         dispatch(action)
 
-    }
-    const startChangeHandler = (e: number) => {
-        const action = startValueAC(e)
+    },[])
+    // const startChangeHandler = useCallback((e: number) => {
+    //     const action = startValueAC(e)
+    //     dispatch(action)
+    // },[])
+    const startChangeHandler = useCallback((e: number) => {
+        const action = setSettingAC('startValue' ,e)
         dispatch(action)
-    }
+    },[])
 
 
     return (
@@ -37,20 +49,16 @@ export const SettingsCounter = () => {
                             max value:
                             <div className={s.input + ' ' + s.child_input}>
                                 <SuperInput
-                                    value={state.count.maxValue}
-                                    callBack={(e: number) => {
-                                        maxChangeHandler(e)
-                                    }}/>
+                                    value={maxValue}
+                                    callBack={maxChangeHandler}/>
                             </div>
                         </div>
                         <div className={s.max_value}>
                             start value:
                             <div className={s.input}>
                                 <SuperInput
-                                    value={state.count.startValue}
-                                    callBack={(e: number) => {
-                                        startChangeHandler(e)
-                                    }}/>
+                                    value={startValue}
+                                    callBack={startChangeHandler}/>
                             </div>
                         </div>
                     </div>
@@ -61,7 +69,7 @@ export const SettingsCounter = () => {
                             <SuperButton
                                 text={'set'}
                                 callBack={setClickHandler}
-                                disabled={state.count.startValue >= state.count.maxValue || state.count.startValue < 0}
+                                disabled={startValue >= maxValue || startValue < 0}
                             />
                         </div>
                     </ThemeProvider>

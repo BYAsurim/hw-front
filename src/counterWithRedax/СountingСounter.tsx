@@ -1,32 +1,35 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import s from "./Counter.module.css";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {SuperButton} from "./SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {CountingRootStateType} from "./state/store";
-import {incrementAC, resetAC} from "./state/counting-reduser";
+import {CountingType, incrementAC, resetAC} from "./state/counting-reduser";
 
 
 export const СountingСounter = () => {
+    console.log('СountingСounter')
 
-    let state = useSelector<CountingRootStateType, CountingRootStateType>(state => state)
+    let state = useSelector<CountingRootStateType, CountingType>(state => state.count)
+
+    let {number, error, maxValue, startValue} = state
     const dispatch = useDispatch()
-    const incHandler = () => {
+    const incHandler = useCallback(() => {
         let action = incrementAC()
         dispatch(action)
-    }
-    const resetHandler = () => {
+    },[])
+    const resetHandler = useCallback(() => {
         let action = resetAC()
         dispatch(action)
-    }
+    },[])
     return (
         <div>
             <div className={s.header}>
                 <div className={s.number}>
-                    {state.count.error === 'write correct' ? <div>Write correct</div> : ''}
-                    <div className={state.count.error === 'error' ? s.error : ''}>
+                    {error === 'write correct' ? <div>Write correct</div> : ''}
+                    <div className={error === 'error' ? s.error : ''}>
                         {
-                            state.count.number
+                            number
                         }
                     </div>
                 </div>
@@ -36,14 +39,14 @@ export const СountingСounter = () => {
                             <SuperButton
                                 text={'inc'}
                                 callBack={incHandler}
-                                disabled={state.count.number === state.count.maxValue || !!state.count.error}
+                                disabled={number === maxValue || !!error}
                             />
                         </div>
                         <div className={s.button_reset}>
                             <SuperButton
                                 text={'reset'}
                                 callBack={resetHandler}
-                                disabled={state.count.number === state.count.startValue}
+                                disabled={number === startValue}
                             />
                         </div>
                     </ThemeProvider>

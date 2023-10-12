@@ -5,10 +5,10 @@ import {СountingСounter} from "./СountingСounter";
 
 
 export function CounterWithRedax() {
+    console.log('CounterWithRedax')
 
     return (
         <div className={s.main}>
-
             <СountingСounter
             />
             <SettingsCounter

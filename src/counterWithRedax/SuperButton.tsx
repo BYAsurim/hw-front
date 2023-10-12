@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Button} from "@mui/material";
 
 type SuperButtonPropsType = {
@@ -8,7 +8,8 @@ type SuperButtonPropsType = {
 
 }
 
-export const SuperButton = (props: SuperButtonPropsType) => {
+export const SuperButton = memo( (props: SuperButtonPropsType) => {
+    console.log('SuperButton')
 
     const onClickHandler = () => {
         props.callBack()
@@ -20,6 +21,6 @@ export const SuperButton = (props: SuperButtonPropsType) => {
             >{props.text}</Button>
         </div>
     );
-};
+});
 
 
