@@ -10,14 +10,16 @@ import {numberAC, setSettingAC} from "./state/counting-reduser";
 
 export const SettingsCounter = () => {
     console.log('SettingsCounter')
-    const startValue = useSelector<CountingRootStateType, number>( state => state.count.startValue)
-    const maxValue = useSelector<CountingRootStateType, number>( state => state.count.maxValue)
+    const startValue = useSelector<CountingRootStateType, number>(state => state.count.startValue)
+    const maxValue = useSelector<CountingRootStateType, number>(state => state.count.maxValue)
     const dispatch = useDispatch()
+    // const dispatchThank = thunkAppDispach()
 
     const setClickHandler = useCallback(() => {
         const action = numberAC()
         dispatch(action)
-    },[])
+        // dispatchThank(setSettingTC())
+    }, [])
 
 
     // const maxChangeHandler = useCallback((e: number) => {
@@ -26,18 +28,18 @@ export const SettingsCounter = () => {
     //
     // },[])
     const maxChangeHandler = useCallback((e: number) => {
-        const action = setSettingAC('maxValue' ,e)
+        const action = setSettingAC('maxValue', e)
         dispatch(action)
 
-    },[])
+    }, [])
     // const startChangeHandler = useCallback((e: number) => {
     //     const action = startValueAC(e)
     //     dispatch(action)
     // },[])
     const startChangeHandler = useCallback((e: number) => {
-        const action = setSettingAC('startValue' ,e)
+        const action = setSettingAC('startValue', e)
         dispatch(action)
-    },[])
+    }, [])
 
 
     return (

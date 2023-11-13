@@ -1,8 +1,11 @@
+import {Dispatch} from "redux";
+import {CountingRootStateType} from "./store";
+
 export type CountingType = {
     number: number
     error: string
     startValue: number
-    maxValue:  number
+    maxValue: number
 }
 type ActionType = ReturnType<typeof incrementAC> | ReturnType<typeof resetAC> | ReturnType<typeof maxValueAC> |
     ReturnType<typeof startValueAC> | ReturnType<typeof numberAC> | ReturnType<typeof setSettingAC>
@@ -10,9 +13,10 @@ type ActionType = ReturnType<typeof incrementAC> | ReturnType<typeof resetAC> | 
 export const initState: CountingType = {
     number: 0,
     error: '',
-    startValue:0,
+    startValue: 0,
     maxValue: 0,
 }
+
 
 export const countingReduser = (state = initState, action: ActionType): CountingType => {
     switch (action.type) {
@@ -20,7 +24,7 @@ export const countingReduser = (state = initState, action: ActionType): Counting
             return {...state, number: state.number + 1}
         }
         case 'RESET-VALUE': {
-            return {...state, number: state.number = 0}
+            return {...state, number: state.number = state.startValue}
         }
         // case 'MAX-VALUE': {
         //     if (state.startValue < 0 || state.startValue >= action.maxValue) {
@@ -36,12 +40,12 @@ export const countingReduser = (state = initState, action: ActionType): Counting
         //         return {...state, startValue: action.startValue, error: ''}
         //     }
         // }
-        case 'SetSetting' :{
-            const {key,value} = action;
+        case 'SetSetting' : {
+            const {key, value} = action;
             const checkedStart = key == 'startValue' ? value : state.startValue;
-            const checkedMax   = key == 'maxValue' ? value : state.maxValue;
+            const checkedMax = key == 'maxValue' ? value : state.maxValue;
             let error = '';
-            if(state.startValue < 0 || value < 0 || checkedStart >= checkedMax) {
+            if (state.startValue < 0 || value < 0 || checkedStart >= checkedMax) {
                 error = 'write correct'
             }
             return {...state, [key]: value, error}
@@ -54,7 +58,7 @@ export const countingReduser = (state = initState, action: ActionType): Counting
     }
 }
 
-export const setSettingAC = (key: 'startValue' | 'maxValue',value: number) => {
+export const setSettingAC = (key: 'startValue' | 'maxValue', value: number) => {
     return {
         type: 'SetSetting',
         key,
@@ -89,5 +93,27 @@ export const numberAC = () => {
     return {
         type: 'SET-VALUE',
     } as const
-
 }
+
+
+//THUNK
+//
+// export const incNumberTC = () => (dispatch: Dispatch, getState: () => CountingRootStateType) => {
+//     let currentValue = getState().count.number
+//     localStorage.setItem('currentValue', JSON.stringify(currentValue + 1))
+//     dispatch(incrementAC())
+// }
+// export const resetNumberTC = () => (dispatch: Dispatch, getState: () => CountingRootStateType) => {
+//     let currentValue = getState().count.number
+//     localStorage.setItem('currentValue', JSON.stringify(currentValue + 1))
+//     dispatch(resetAC())
+// }
+// export const setSettingTC = () => (dispatch: Dispatch, getState: () => CountingRootStateType) => {
+//     let currentValue = getState().count.number
+//     let startValue = getState().count.startValue
+//     let maxValue = getState().count.maxValue
+//     localStorage.setItem('currentValue', JSON.stringify(currentValue))
+//     localStorage.setItem('startValue', JSON.stringify(startValue))
+//     localStorage.setItem('maxValue', JSON.stringify(maxValue))
+//     dispatch(numberAC())
+// }

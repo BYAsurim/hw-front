@@ -3,19 +3,19 @@
     display: flex;
     justify-content: center;
     align-items: end;
-    height: auto;
+    /*height: auto;*/
+    margin-top: 50px;
 }
 
 .header {
-    border: 2px solid green;
-    border-radius: 10px;
     width: 300px;
     height: 300px;
-    background-color: yellow;
+    border: 2px solid green;
+    border-radius: 10px;
+    background-color: #fae727;
     padding: 10px;
     font-size: 40px;
     margin: 10px;
-
 }
 
 .error {
@@ -24,7 +24,6 @@
 }
 
 .number {
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -69,6 +68,7 @@
     font-size: 25px;
     padding: 10px;
     margin: 30px 0 0 0 ;
+
 }
 
 .input {
@@ -79,6 +79,12 @@
 }
 .root{
     width: 90%;
+}
 
+@media screen and (max-width: 675px ){
+    .main{
+    flex-direction: column;
+        align-items: center;
+    }
 }
 

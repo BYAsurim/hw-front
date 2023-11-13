@@ -4,19 +4,21 @@ import {createTheme, ThemeProvider} from "@mui/material";
 import {SuperButton} from "./SuperButton";
 import {useDispatch, useSelector} from "react-redux";
 import {CountingRootStateType} from "./state/store";
-import {CountingType, incrementAC, resetAC} from "./state/counting-reduser";
+import {CountingType,  incrementAC, resetAC} from "./state/counting-reduser";
 
 
 export const СountingСounter = () => {
     console.log('СountingСounter')
 
     let state = useSelector<CountingRootStateType, CountingType>(state => state.count)
+    // const dispatchThunk = thunkAppDispach()
 
     let {number, error, maxValue, startValue} = state
     const dispatch = useDispatch()
     const incHandler = useCallback(() => {
         let action = incrementAC()
         dispatch(action)
+        // dispatchThunk(incNumberTC())
     },[])
     const resetHandler = useCallback(() => {
         let action = resetAC()
@@ -26,8 +28,8 @@ export const СountingСounter = () => {
         <div>
             <div className={s.header}>
                 <div className={s.number}>
-                    {error === 'write correct' ? <div>Write correct</div> : ''}
-                    <div className={error === 'error' ? s.error : ''}>
+                    {error === 'write correct' ? <div className={s.error}>Write correct</div> : ''}
+                    <div className={error === 'write correct' ? s.error : ''}>
                         {
                             number
                         }
